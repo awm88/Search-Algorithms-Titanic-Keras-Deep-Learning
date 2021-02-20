@@ -1,4 +1,4 @@
-#Titanic Assignment Kaggle #Kaggle Username: Awmnah Asad #Name of Project: FINAL PROJECT
+#Titanic Assignment 
 #Step 1: Importing:
     
 import numpy as np # linear algebra
