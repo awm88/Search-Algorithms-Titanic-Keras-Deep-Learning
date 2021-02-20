@@ -1,0 +1,37 @@
+/*
+There are 5 queries for this exercise.
+*/
+
+-- List all employees(name, ID) with their employement history(job title, start date, end date)
+SELECT jobpositionhistory.employeeid, employeename, jobpositionhistory.jobtitle, jobpositionhistory.startingdate, jobpositionhistory.endingdate
+FROM employee INNER JOIN jobpositionhistory
+ON employee.employeeid=jobpositionhistory.employeeid;
+
+--List all patient appointment for medical employee(ID='E1003',name) within specific week (between '2020-09-06' and '2020-09-13') 
+SELECT employee.employeeid, employeename, patient.patientid,patientname, actualdate
+FROM employee, appointment, patient
+WHERE employee.employeeid=appointment.employeeid
+AND appointment.patientid=patient.patientid 
+AND actualdate BETWEEN '2020-09-06' AND '2020-09-13' 
+AND employee.employeeid='E1003';
+
+--List all medication used(medical name, quantity used, using date) for a given complaint (complaint name)
+SELECT medicaluse.appointdate, complaint, quantityused, medicalname
+FROM medicaluse, inventory, complaint
+WHERE complaint.complaintid=medicaluse.complaintid
+AND medicaluse.medicalid=inventory.medicalid
+AND complaint='mole on scalp';
+
+--List all medical consumable(medication type='medication consumable', medical name, quantity used) for a given complaint (complaint name)
+SELECT medicaluse.appointdate,complaint, medicalname,quantityused
+FROM medicaluse, inventory, complaint
+WHERE complaint.complaintid=medicaluse.complaintid
+AND medicaluse.medicalid=inventory.medicalid
+AND medicationtype='Medical Consumable' AND complaint='mole on scalp';
+
+--List the insurance claim amount submitted and amount covered(submission amount and covered amount) for an appointment of a given patient(patientid='P2001') 
+SELECT ComplaintID, submissionpayment, coveredpayment 
+FROM Insuranceclaim 
+WHERE complaintid IN (SELECT ComplaintID 
+                      FROM Appointment 
+                      WHERE PatientID='P2001');
