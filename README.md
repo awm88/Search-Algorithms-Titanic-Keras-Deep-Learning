@@ -1,4 +1,4 @@
-# AI-Fundamentals-Projects-Python- 
+# AI-Fundamentals-Projects-Python- Search Algorithms
 I implemented Depth-First Search (DFS) which uses a Last-In-First-Out (LIFO) stack.
 I ran GreedySearch() with Kitchener as the root node (init_state) and Listowel as (goal_name).
 I built a search tree which included the heuristic function and included the locations below.
