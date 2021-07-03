@@ -168,7 +168,7 @@ add_child(tree['children'][0]['children'][0]['children'][0]['children'][0]['chil
 
 
 def DFS(init_state, goal_name):
-    """Breadth-First Search (BFS)
+    """Depth-First Search (DFS)
     Arguments
     ---------
     init_state : the root node of a search tree
