@@ -18,4 +18,5 @@ goal.
 #Titanic Project
 I predicted the survival rate of the passengers.
 
-#
+#Keras and Deep Learning Project
+This is image classification with the MNIST handwritten digits.
