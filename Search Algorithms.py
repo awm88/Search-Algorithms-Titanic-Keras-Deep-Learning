@@ -1,5 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 26 11:19:15 2021
+
+@author: awmna
+"""
 
 # Node with weight
+
+
 def get_node(name, weight=None):
 
     node = {}
@@ -179,7 +187,7 @@ def DFS(init_state, goal_name):
     explored = []
 
     while len(frontier):
-        state = frontier.pop() # dequeue
+        state = frontier.pop()  # dequeue
 
         if state['name'] == goal_name:
             return True
@@ -191,86 +199,90 @@ def DFS(init_state, goal_name):
                 explored.append(state['name'])
     return False
 
-print(DFS(tree,'Richmond Hill'))
+
+print(DFS(tree, 'Richmond Hill'))
 
 
-
-def get_node(name,heuristic=None):
-    node={}
-    node['name']=name
-    node['children']=[]
-    node['heuristic']=heuristic
-    node['path']=[]
+def get_node(name, heuristic=None):
+    node = {}
+    node['name'] = name
+    node['children'] = []
+    node['heuristic'] = heuristic
+    node['path'] = []
     return node
 
-def add_child(node,name,heuristic):
-    node['children'].append(get_node(name,heuristic))
 
-tree=get_node('Kitchener')
-#children of Kitchener:Guelph and New Hamburg
-add_child(tree,'Guelph',160,)
-add_child(tree,'New Hamburg',110)
+def add_child(node, name, heuristic):
+    node['children'].append(get_node(name, heuristic))
 
-#children of Guelph: Drayton, Kitchener
-add_child(tree['children'][0],'Drayton',100)
-add_child(tree['children'][0],'Kitchener',130)
 
-#children of New Hamburg: Stratford, Kitchener
-add_child(tree['children'][1],'Stratford',100)
-add_child(tree['children'][1],'Kitchener',130)
+tree = get_node('Kitchener')
+# children of Kitchener:Guelph and New Hamburg
+add_child(tree, 'Guelph', 160,)
+add_child(tree, 'New Hamburg', 110)
 
-#children of Drayton: Listowel,Guelph
-add_child(tree['children'][0]['children'][0],'Listowel',0)
-add_child(tree['children'][0]['children'][0],'Guelph',160)
+# children of Guelph: Drayton, Kitchener
+add_child(tree['children'][0], 'Drayton', 100)
+add_child(tree['children'][0], 'Kitchener', 130)
 
-#children of Stratford: St. Marys, Drayton, and New Hamburg
-add_child(tree['children'][1]['children'][0],'St. Marys',130)
-add_child(tree['children'][1]['children'][0],'Drayton',100)
-add_child(tree['children'][1]['children'][0],'New Hamburg',110)
+# children of New Hamburg: Stratford, Kitchener
+add_child(tree['children'][1], 'Stratford', 100)
+add_child(tree['children'][1], 'Kitchener', 130)
 
-#children of St.Marys: Mitchell,Stratford
-add_child(tree['children'][1]['children'][0]['children'][0],'Mitchell',100)
-add_child(tree['children'][1]['children'][0]['children'][0],'Stratford',100)
+# children of Drayton: Listowel,Guelph
+add_child(tree['children'][0]['children'][0], 'Listowel', 0)
+add_child(tree['children'][0]['children'][0], 'Guelph', 160)
 
-#children of Drayton: Stratford,Listowel
-add_child(tree['children'][1]['children'][0]['children'][1],'Stratford',100)
-add_child(tree['children'][1]['children'][0]['children'][1],'Listowel',0)
+# children of Stratford: St. Marys, Drayton, and New Hamburg
+add_child(tree['children'][1]['children'][0], 'St. Marys', 130)
+add_child(tree['children'][1]['children'][0], 'Drayton', 100)
+add_child(tree['children'][1]['children'][0], 'New Hamburg', 110)
 
-#children of Mitchell: St.Marys, Listowel
-add_child(tree['children'][1]['children'][0]['children'][0]['children'][0],'St.Marys',130)
-add_child(tree['children'][1]['children'][0]['children'][0]['children'][0],'Listowel',0)
+# children of St.Marys: Mitchell,Stratford
+add_child(tree['children'][1]['children'][0]['children'][0], 'Mitchell', 100)
+add_child(tree['children'][1]['children'][0]['children'][0], 'Stratford', 100)
+
+# children of Drayton: Stratford,Listowel
+add_child(tree['children'][1]['children'][0]['children'][1], 'Stratford', 100)
+add_child(tree['children'][1]['children'][0]['children'][1], 'Listowel', 0)
+
+# children of Mitchell: St.Marys, Listowel
+add_child(tree['children'][1]['children'][0]['children'][0]['children'][0], 'St.Marys', 130)
+add_child(tree['children'][1]['children'][0]['children'][0]['children'][0], 'Listowel', 0)
+
 
 # Greedy helper
 def find_min_heuristic(frontier):
-  # Helper func to find min of h (the heuristic function)
-  min_h_i = 0
-  if len(frontier) > 1:
-      min_h = frontier[min_h_i]['heuristic']
-      for i, state in enumerate(frontier):
-        if state['heuristic'] < min_h:
-          min_h_i = i
-          min_h = state['heuristic']
-  return min_h_i
+    # Helper func to find min of h (the heuristic function)
+    min_h_i = 0
+    if len(frontier) > 1:
+        min_h = frontier[min_h_i]['heuristic']
+        for i, state in enumerate(frontier):
+            if state['heuristic'] < min_h:
+                min_h_i = i
+                min_h = state['heuristic']
+    return min_h_i
+
 
 def GreedySearch(init_state, goal_name):
-  frontier = [init_state]
-  explored = []
+    frontier = [init_state]
+    explored = []
 
-  while len(frontier):
-      state = frontier.pop(find_min_heuristic(frontier))
-      explored.append(state['name'])
-      state['path'].append(state['name'])
-      if state['name'] == goal_name:
-        return state['path']
+    while len(frontier):
+        state = frontier.pop(find_min_heuristic(frontier))
+        explored.append(state['name'])
+        state['path'].append(state['name'])
+        if state['name'] == goal_name:
+            return state['path']
 
-      for child in state['children']:
-        if child['name'] not in explored:
-          frontier.append(child)
-        child['path'].extend(state['path'])
-  return state['path']
+        for child in state['children']:
+            if child['name'] not in explored:
+                frontier.append(child)
+            child['path'].extend(state['path'])
+    return state['path']
 
-print(GreedySearch(tree,'Listowel'))
 
+print(GreedySearch(tree, 'Listowel'))
 
 
 
